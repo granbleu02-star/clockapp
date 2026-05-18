@@ -36,21 +36,53 @@
 
 ---
 
-## 설치 및 실행
+## 실행 방법 (5가지 옵션)
 
-### 1) 의존 패키지 설치
+### 옵션 A — 가장 간단한 로컬 실행 (스크립트)
+
+```bash
+./run.sh
+```
+
+가상환경 생성 → 의존성 설치 → 서버 기동까지 한 번에. 브라우저에서 `http://localhost:8501` 접속.
+
+### 옵션 B — 수동 로컬 실행
 
 ```bash
 pip install -r requirements.txt
-```
-
-### 2) 앱 실행
-
-```bash
 streamlit run app.py
 ```
 
-브라우저에서 자동으로 `http://localhost:8501` 이 열립니다.
+### 옵션 C — Docker (한 줄 웹 서비스)
+
+도커가 설치되어 있으면 다음 한 줄이면 끝납니다.
+
+```bash
+docker compose up -d --build
+```
+
+브라우저에서 **`http://localhost:8501`** 접속. 중지는 `docker compose down`.
+
+같은 네트워크의 다른 기기(휴대폰, 노트북)에서도 `http://<호스트IP>:8501` 로 접속 가능합니다.
+
+### 옵션 D — Streamlit Community Cloud (무료 공개 호스팅) ⭐
+
+**가장 추천**. 무료, 도메인 자동 발급, 코드 푸시하면 자동 재배포.
+
+1. 이 레포를 GitHub에 푸시
+2. <https://streamlit.io/cloud> 접속 → GitHub 로그인
+3. **New app** → 이 레포 + 브랜치 + `app.py` 선택 → **Deploy**
+4. 1~2분 후 `https://<your-app>.streamlit.app` 발급
+
+설정 파일(`requirements.txt`, `runtime.txt`, `.streamlit/config.toml`)이 이미 포함되어 있어 추가 작업 불필요.
+
+### 옵션 E — Render / Railway / Fly.io (커스텀 도메인 가능)
+
+레포에 `Procfile`, `render.yaml`, `Dockerfile` 이 모두 포함되어 있어 어디든 배포 가능.
+
+- **Render**: <https://render.com> → New Web Service → 레포 연결 → `render.yaml` 자동 인식
+- **Railway**: <https://railway.app> → New Project → Deploy from GitHub → 자동 감지
+- **Fly.io**: `fly launch` → Dockerfile 자동 감지 → `fly deploy`
 
 ---
 

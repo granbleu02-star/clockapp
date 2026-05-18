@@ -1,0 +1,14 @@
+services:
+  stock-analyzer:
+    build: .
+    container_name: korean-stock-analyzer
+    ports:
+      - "8501:8501"
+    restart: unless-stopped
+    environment:
+      - TZ=Asia/Seoul
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:8501/_stcore/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
